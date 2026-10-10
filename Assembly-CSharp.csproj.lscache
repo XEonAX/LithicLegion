@@ -50,7 +50,9 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
-Assets/TutorialInfo/Readme.cs
+Assets/
+ Scripts/Player.cs
+ TutorialInfo/Readme.cs
 Temp/obj/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]
@@ -386,6 +388,8 @@ Library/ScriptAssemblies/
  Unity.AppUI.Redux.Editor.dll
  Unity.AppUI.Undo.dll
  Unity.Burst.dll
+ Unity.Cinemachine.dll
+ Unity.Cinemachine.Editor.dll
  Unity.Collections.dll
  Unity.Collections.Editor.dll
  Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll
@@ -434,7 +438,10 @@ Library/ScriptAssemblies/
  Unity.RenderPipelines.Universal.Shaders.dll
  Unity.Rider.Editor.dll
  Unity.Searcher.Editor.dll
+ Unity.Settings.Editor.dll
  Unity.ShaderGraph.Editor.dll
+ Unity.Splines.dll
+ Unity.Splines.Editor.dll
  Unity.SurfaceCache.Runtime.dll
  Unity.TextMeshPro.dll
  Unity.TextMeshPro.Editor.dll

@@ -107,3 +107,17 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# ---------------------------------------------------------------------------
+# Hex shield work (see .shieldwork/README.md)
+#
+# The harness drives the live Editor, captures to Tmp/shots and writes its own
+# evidence there. Both trees are regenerable scratch: nothing under Assets/
+# references either of them, and Unity ignores .shieldwork entirely.
+# The harness and notes stay on disk; they are just not part of the build.
+# ---------------------------------------------------------------------------
+/.shieldwork/
+/Tmp/
+
+# MSBuild/Roslyn incremental caches regenerated on every compile
+*.lscache

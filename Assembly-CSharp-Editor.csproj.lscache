@@ -50,7 +50,9 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
-Assets/TutorialInfo/Editor/ReadmeEditor.cs
+Assets/
+ Editor/BakeGoldbergPattern.cs
+ TutorialInfo/Editor/ReadmeEditor.cs
 Temp/obj/Assembly-CSharp-Editor/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]

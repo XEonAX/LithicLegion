@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_HexForceField
+  m_Shader: {fileID: 4800000, guid: bed4458a61f03409295a14a429f4091e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _HexNormal:
+        m_Texture: {fileID: 2800000, guid: b4ec58083f14a45b096c460044ccc0a2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HexPattern:
+        m_Texture: {fileID: 2800000, guid: fea03961eb61b49e29c424228f124ec4, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BackGlassOpacity: 0.15
+    - _DistortStrength: 0.03
+    - _FaceAlpha: 0
+    - _HexEdgePower: 2.8
+    - _HexFaceFalloff: 1.5
+    - _HexFaceGlow: 0
+    - _HexFaceOpacity: 0.82
+    - _HexLineAA: 1
+    - _HexLineOffset: 0.22
+    - _HexLineWidth: 0.09
+    - _IntersectBackRefract: 0.5
+    - _IntersectPower: 2
+    - _IntersectReach: 0.06
+    - _IntersectSeam: 1.6
+    - _PanelCoreWidth: 0.1
+    - _RefractClamp: 0.02
+    - _RimIntensity: 1.8
+    - _RimPower: 6
+    m_Colors:
+    - _BaseColor: {r: 0.1, g: 0.4, b: 1, a: 1}
+    - _HexColor: {r: 0.34, g: 0.75, b: 3.6, a: 1}
+    - _HexFaceColor: {r: 0.06, g: 0.14, b: 0.45, a: 1}
+    - _IntersectColor: {r: 0.28, g: 2.2, b: 10.4, a: 1}
+    - _PanelTint: {r: 0.97, g: 0.97, b: 0.97, a: 1}
+    - _RimColor: {r: 0.45, g: 1.15, b: 5.2, a: 1}
+    - _SeamTint: {r: 0.97, g: 0.97, b: 0.97, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

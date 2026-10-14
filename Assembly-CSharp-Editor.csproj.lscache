@@ -52,6 +52,7 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 [sourceFiles]
 Assets/
  Editor/BakeGoldbergPattern.cs
+ HexBake/Editor/HexDataCubeBaker.cs
  TutorialInfo/Editor/ReadmeEditor.cs
 Temp/obj/Assembly-CSharp-Editor/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 

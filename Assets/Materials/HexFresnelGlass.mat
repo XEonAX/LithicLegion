@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HexFresnelGlass
+  m_Shader: {fileID: 4800000, guid: 67c9d82fc9f14435ba186dfa50e09333, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _AnimSpeed: 0.13
+    - _BreathDepth: 0.904
+    - _BreathSpeed: 0
+    - _FlickerAmount: 0.35
+    - _FlickerSpeed: 2.5
+    - _FresnelPower: 0.5
+    - _GlassAlpha: 0
+    - _HexAA: 4
+    - _HexAlpha: 0.35
+    - _HexDensity: 66
+    - _HexEdgeEnd: 0
+    - _HexEdgeStart: 0
+    - _HexFaceAmount: 0.174
+    - _HexFillIntensity: 1.09
+    - _HexFillPower: 6
+    - _HexIntensity: 2
+    - _HexLineWidth: 0.6
+    - _Mapping: 0
+    - _PulseBoost: 1.6
+    - _PulseDensity: 3
+    - _PulseSpeed: 0.6
+    - _PulseWidth: 0.3
+    - _RefractClamp: 0.05
+    - _RefractStrength: 0.02
+    - _RimAlpha: 0.965
+    - _RimIntensity: 0
+    - _SceneColorGlass: 1
+    - _SwirlSpeed: 0
+    - _TriplanarScale: 10
+    m_Colors:
+    - _FlowSpeed: {r: 0.06, g: 0, b: 0, a: 0}
+    - _GlassTint: {r: 1.1, g: 1.5, b: 2, a: 1}
+    - _HexColor: {r: 0.2, g: 0.55, b: 4.8, a: 1}
+    - _HexFillColor: {r: 0.05, g: 0.25, b: 1.2, a: 1}
+    - _PulseColor: {r: 0.35, g: 0.9, b: 5.5, a: 1}
+    - _PulseDir: {r: 0, g: 1, b: 0, a: 0}
+    - _RimColor: {r: 0.15, g: 0.7, b: 3.6, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

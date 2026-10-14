@@ -34,14 +34,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _BackGlassOpacity: 0.15
-    - _DistortStrength: 0.03
+    - _DistortStrength: 0.1
     - _FaceAlpha: 0
     - _HexEdgePower: 2.8
     - _HexFaceFalloff: 1.5
     - _HexFaceGlow: 0
     - _HexFaceOpacity: 0.82
     - _HexLineAA: 1
-    - _HexLineOffset: 0.22
+    - _HexLineOffset: 0.26
     - _HexLineWidth: 0.09
     - _IntersectBackRefract: 0.5
     - _IntersectPower: 2

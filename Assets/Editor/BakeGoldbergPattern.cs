@@ -227,10 +227,28 @@ public static class BakeGoldbergPattern
     // A vector field also mip-filters correctly, which a baked LINE image does not.
 
     const string DefaultNormalPath = "Assets/Materials/HexReliefNormal.asset";
-    const float DefaultRidgeOffset = 0.18f;   // en at the ridge crest -- keep == _HexLineOffset
-    const float DefaultRidgeWidth  = 0.10f;   // en half-width of each ridge (must be < offset,
-                                              // or the two flanks merge across the border and the
-                                              // four-lobe W collapses to a single staple)
+    // en at the ridge crest, and the en half-width of each ridge.
+    //
+    // These two set how WIDE the W is, and the width is what decides how hard it can be pushed. The
+    // shader's displacement is  reliefV.xy * _DistortStrength * apothemPx,  and reliefV varies over
+    // a ridge that is about 2w en units across, i.e. 2w * apothemPx pixels. So the displacement's
+    // own screen-space gradient is roughly
+    //
+    //     |d offset / d px|  ~  _DistortStrength * |reliefV| / w
+    //
+    // and the mapping folds over the moment that passes 1 -- the background then samples from a
+    // region it has already used and tears into the speckle that reads as noise. Note that the
+    // apothem CANCELS, so this is a property of the relief alone, not of the shield's scale.
+    //
+    // With |reliefV| normalised to 0.70 (DefaultMaxTilt) that gives  _DistortStrength < w / 0.7:
+    // w = 0.10 caps it at 0.14, which is barely a visible W, while w = 0.16 allows 0.23. Widening
+    // the ridge is therefore the only way to get a BOLD W without it folding -- turning up the
+    // strength on a narrow ridge just trades a faint W for a torn background.
+    //
+    // w must stay below the offset, or the two flanks merge across the border and the four-lobe W
+    // collapses into a single staple.
+    const float DefaultRidgeOffset = 0.26f;
+    const float DefaultRidgeWidth  = 0.16f;
     const float DefaultMaxTilt     = 0.70f;   // 99.5th percentile |n.xy| in the baked map
     // The relief has to be several texels wide to survive a bake: at 1024x512 one texel spans
     // 0.0061 rad in v, a ridge of width 0.11 en units is ~0.008 rad, i.e. 1.3 texels -- it

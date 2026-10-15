@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     Rigidbody rb; 
     InputAction moveAction;
 
+    [SerializeField] LayerMask aimLayerMask;
+    [SerializeField] CrossHair crossHair;
+    [SerializeField] Transform Weapons;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +23,28 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 2. Create the ray from the camera through the center of the screen
+        Ray ray = cam.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
+        // 3. Cast the ray into the 3D world
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimLayerMask))
+        {
+            // Point the guns at the exact spot in 3D space the reticle is sitting on.
+            Weapons.LookAt(hitInfo.point);
+
+            ReportAimDistance(hitInfo.distance);
+        }
+        else
+        {
+            // Aiming at nothing, so the reticle reads as a target right out at range.
+            ReportAimDistance(float.PositiveInfinity);
+        }
+    }
+
+    /// <summary>Tells the reticle how far away the aim point is, so it can size itself to match.</summary>
+    void ReportAimDistance(float distance)
+    {
+        if (crossHair != null) crossHair.SetDistance(distance);
     }
     void FixedUpdate()
     {

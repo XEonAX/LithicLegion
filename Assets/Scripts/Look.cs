@@ -14,6 +14,8 @@ public class Look : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         lookAction = InputSystem.actions.FindAction("Look");
 
         // Start from the transform's current rotation instead of snapping.

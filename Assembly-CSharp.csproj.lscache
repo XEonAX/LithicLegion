@@ -51,8 +51,13 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 
 [sourceFiles]
 Assets/Scripts/
+ CrossHair.cs
+ Gun.cs
  Look.cs
  Player.cs
+ Projectile.cs
+ Weapon.cs
+ WeaponEmitter.cs
 Assets/TutorialInfo/Readme.cs
 Temp/obj/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 

@@ -122,3 +122,12 @@ InitTestScene*.unity*
 # MSBuild/Roslyn incremental caches regenerated on every compile
 *.lscache
 /audio_work/
+
+# ---------------------------------------------------------------------------
+# Agent tooling run against the live Editor
+#
+# One-off C# the harness compiles in memory and runs by entry point. It lives
+# outside Assets/ so editing it triggers no import and no domain reload, and it
+# is disposable: nothing in the game references it.
+# ---------------------------------------------------------------------------
+/AgentScripts/

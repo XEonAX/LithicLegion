@@ -44,19 +44,19 @@ Material:
     m_Floats:
     - _EdgeSoftness: 0.17
     - _EdgeWidth: 0.005
-    - _HexIntersectInfluence: 1.2
+    - _HexIntersectInfluence: 3.19
     - _HexRimInfluence: 6.13
-    - _HexStrength: 0.05
+    - _HexStrength: 0.32
     - _InnerLineOffset: 0.1
     - _InnerLineWidth: 0.005
-    - _IntersectDistortion: 0.35
+    - _IntersectDistortion: 0.13
     - _IntersectionBackIntensity: 1
-    - _IntersectionIntensity: 1.9
-    - _IntersectionSoftness: 1
-    - _IntersectionThickness: 0.5
+    - _IntersectionIntensity: 4
+    - _IntersectionSoftness: 1.84
+    - _IntersectionThickness: 1.03
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RimIntensity: 8
+    - _RimIntensity: 5
     - _RimPower: 3.67
     m_Colors:
     - _IntersectionColor: {r: 0.15, g: 0.55, b: 3, a: 1}

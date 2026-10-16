@@ -51,6 +51,7 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 
 [sourceFiles]
 Assets/Scripts/
+ AudioManager.cs
  CrossHair.cs
  DashGhost.cs
  Gun.cs

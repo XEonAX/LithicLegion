@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
-/// Shoots bullets and cocks itself back. One emitter per mount: the <see cref="Weapon"/> on the parent
-/// decides when this gun's turn comes, so all the gun has to know is how to shoot.
+/// Shoots bullets, plays a shot and cocks itself back. One emitter per mount: the <see cref="Weapon"/>
+/// on the parent decides when this gun's turn comes, so all the gun has to know is how to shoot.
 ///
 /// List the barrels in order and point it at the bullet prefab. Bullets are instantiated unparented,
 /// so each one locks in the pose its barrel had at the moment of firing while the gun and barrels
-/// carry on moving.
+/// carry on moving. The shot is played the same way - through <see cref="AudioManager"/>, from the
+/// muzzle, on the gun's own mixer - so it and the bullet leave from the same place.
 /// </summary>
 public class Gun : WeaponEmitter
 {
@@ -17,6 +19,19 @@ public class Gun : WeaponEmitter
     [Header("Ammo")]
     [Tooltip("Bullet prefab. It needs a Projectile and a CapsuleCollider.")]
     [SerializeField] Projectile bulletPrefab;
+
+    [Header("Sound")]
+    [Tooltip("Played once per shot, from the muzzle. Leave it empty for a silent gun.")]
+    [SerializeField] AudioClip fireSound;
+    [Tooltip("Bus the shot is played on - the Gun mixer. Leaving it empty sends the shot straight to " +
+             "the master, where it cannot be turned down on its own.")]
+    [SerializeField] AudioMixerGroup fireOutput;
+    [Tooltip("How loud one shot is, before the mixer gets a say.")]
+    [Range(0f, 1f)]
+    [SerializeField] float fireVolume = 1f;
+    [Tooltip("Each shot picks a pitch at random in this range, so a burst does not sound like one " +
+             "sample played over and over. Set both ends to 1 to switch the variation off.")]
+    [SerializeField] Vector2 firePitch = new Vector2(0.94f, 1.06f);
 
     [Header("Recoil")]
     [Tooltip("How far the gun cocks back along its barrels, in world units.")]
@@ -70,8 +85,35 @@ public class Gun : WeaponEmitter
             Instantiate(bulletPrefab, barrel.position, barrel.rotation);
         }
 
+        PlayFireSound();
+
         kickDuration = Mathf.Max(interval, 0f);
         kickElapsed = 0f;
+    }
+
+    /// <summary>
+    /// Fires the shot sound from the muzzle. Pitched a little differently every time so that the
+    /// weapon's own cadence does not turn one sample into an obvious loop.
+    /// </summary>
+    void PlayFireSound()
+    {
+        if (fireSound == null) return;
+
+        AudioManager.PlayOneShot(fireSound, MuzzlePosition(), fireOutput, fireVolume,
+                                 Random.Range(firePitch.x, firePitch.y));
+    }
+
+    Vector3 MuzzlePosition()
+    {
+        if (barrels != null)
+        {
+            foreach (Transform barrel in barrels)
+            {
+                if (barrel != null) return barrel.position;
+            }
+        }
+
+        return transform.position;
     }
 
     /// <summary>

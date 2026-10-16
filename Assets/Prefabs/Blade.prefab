@@ -108,6 +108,10 @@ MonoBehaviour:
   barrels:
   - {fileID: 4414528453326625230}
   bulletPrefab: {fileID: 6943077318415136127, guid: 9b08777d60b944e1c823edbe58ab935d, type: 3}
+  fireSound: {fileID: 8300000, guid: 934318d34419d426facd63a0f2ddec9f, type: 3}
+  fireOutput: {fileID: 24300002, guid: e2ffd59871ee84331bba60ec3fd716c0, type: 2}
+  fireVolume: 1
+  firePitch: {x: 0.94, y: 1.06}
   recoilDistance: 0.15
   recoilKickPortion: 0.25
   recoilPart: {fileID: 0}

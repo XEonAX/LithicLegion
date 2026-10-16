@@ -134,6 +134,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   triggerInteraction: 1
   destroyOnHit: 1
+  impactMarkPrefab: {fileID: 5655146531931192716, guid: 8062b84f36a87425b8c514764cf6fc55, type: 3}
+  impactImpulse: 1
   onHit:
     m_PersistentCalls:
       m_Calls: []

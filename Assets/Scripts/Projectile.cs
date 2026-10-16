@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// A bullet that flies along its own forward (blue Z) axis and stops at the first thing it touches.
+/// A bullet that flies along its own forward (blue Z) axis and stops at the first thing it touches,
+/// leaving an <see cref="ImpactMark"/> where it stopped.
 ///
 /// Spawn it with Instantiate(prefab, barrel.position, barrel.rotation) - it starts flying the moment
 /// it is enabled and is never parented to the barrel, so the barrel can carry on moving without
@@ -48,6 +49,13 @@ public class Projectile : MonoBehaviour
     [Header("Impact")]
     [Tooltip("Destroy the bullet where it hit. Untick to leave it parked at the impact point.")]
     [SerializeField] bool destroyOnHit = true;
+    [Tooltip("Mark left at the impact point. Leave it empty for bullets that hit without marking.")]
+    [SerializeField] ImpactMark impactMarkPrefab;
+    [Tooltip("Push delivered to whatever the bullet stops against, in newton-seconds, along the " +
+             "direction of travel. Applied at the contact point, so an off-centre hit spins the target " +
+             "as well as shoving it. Only Rigidbodies that are not kinematic can take it - set to 0 to " +
+             "shoot without pushing anything.")]
+    [SerializeField] float impactImpulse = 4f;
     [Tooltip("Raised once, where the bullet hit something.")]
     [SerializeField] UnityEvent<BulletHit> onHit = new UnityEvent<BulletHit>();
 
@@ -111,6 +119,9 @@ public class Projectile : MonoBehaviour
                 distance = travelled,
                 collider = hit.collider,
             };
+            ApplyImpactForce(impact);
+            SpawnImpactMark(impact);
+
             onHit?.Invoke(impact);
             Hit?.Invoke(impact);
 
@@ -127,6 +138,37 @@ public class Projectile : MonoBehaviour
     {
         spent = true;
         if (destroyOnHit) Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Shoves whatever the bullet stopped against. The impulse goes in at the contact point rather than
+    /// through the centre of mass, so a hit near an edge makes the target tumble instead of sliding
+    /// flat - which is what sells the hit. Scenery and kinematic bodies have nothing to push and are
+    /// skipped, and a mass of 1 is assumed to be the ordinary case: a heavier target simply moves less.
+    /// </summary>
+    void ApplyImpactForce(BulletHit impact)
+    {
+        if (impactImpulse <= 0f || impact.collider == null) return;
+
+        Rigidbody body = impact.collider.attachedRigidbody;
+        if (body == null || body.isKinematic) return;
+
+        body.AddForceAtPosition(direction * impactImpulse, impact.point, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// Leaves a mark lying on whatever the bullet stopped against. The mark remembers the hit in that
+    /// object's own space, so shooting something that moves does not leave the mark hanging in the air
+    /// where the surface used to be.
+    /// </summary>
+    void SpawnImpactMark(BulletHit impact)
+    {
+        if (impactMarkPrefab == null) return;
+
+        Transform surface = impact.collider != null ? impact.collider.transform : null;
+
+        ImpactMark mark = ObjectPool.Rent(impactMarkPrefab, impact.point, Quaternion.identity);
+        mark.Show(impact.point, impact.normal, surface);
     }
 
     /// <summary>Sweeps the capsule forward and returns the nearest real impact.</summary>

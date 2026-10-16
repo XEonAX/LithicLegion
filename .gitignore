@@ -131,3 +131,12 @@ InitTestScene*.unity*
 # is disposable: nothing in the game references it.
 # ---------------------------------------------------------------------------
 /AgentScripts/
+
+# ---------------------------------------------------------------------------
+# Source reference material (.source_reference)
+#
+# Local copies of external source video kept for reference while matching the
+# game against it. Large and third-party, and referenced by nothing in the
+# build: they stay on disk but out of version control.
+# ---------------------------------------------------------------------------
+/.source_reference/

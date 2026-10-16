@@ -64,3 +64,39 @@ Do not report a visual change as done until step 3 shows a difference attributab
   after `recompile`. Wait for it to pass through `compiling`, or sleep first, before trusting it.
 - **Every command accepts `--project-path`.** Pass it when more than one Editor may be open; without
   it the CLI targets the Editor that owns the current directory.
+
+## Source reference video is on disk — refer to it, do not download it
+
+Parts of this game are matched against an external video. **The copy is already local.** Check
+`.source_reference/` before reaching for the network: re-downloading a 237 MiB file that is sitting
+right there wastes minutes and will silently succeed, so nothing will tell you it was pointless.
+
+| reference | local copy |
+|---|---|
+| `youtu.be/OU3B3D-52us` — *Remaking My First Game! \| Devlog #1* (Mythic Legion) | `.source_reference/reference_video_OU3B3D-52us_1080p60.mp4` |
+
+`.source_reference/README.md` is the full manifest — resolution, duration, `sha256`, provenance.
+That directory is **gitignored**, so it exists on a machine that has fetched it and not in a fresh
+clone; if the table's file is absent, see the fallback at the end of this section.
+
+Pull frames straight out of the local file (1920x1080 beats any screenshot of the same shot):
+
+```bash
+ffmpeg -ss 00:12:12 -i .source_reference/reference_video_OU3B3D-52us_1080p60.mp4 -frames:v 1 frame.png
+```
+
+**Fallback only if the file is genuinely missing.** yt-dlp is **not vendored in this repo** — use one
+on `PATH`, or install it (`pipx install yt-dlp`). The system `python3` is 3.9, below yt-dlp's >=3.10
+floor, so `python3 -m yt_dlp` exits with an `ImportError`; use a newer interpreter or a standalone
+binary:
+
+```bash
+yt-dlp -f "bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 \
+  -o ".source_reference/reference_video_OU3B3D-52us_1080p60.mp4" \
+  "https://www.youtube.com/watch?v=OU3B3D-52us"
+```
+
+Two traps that make a re-download look fine when it isn't: **1080p60 is this video's ceiling** (no
+1440p/2160p tier exists, so nothing is gained by trying), and **`deno` is not installed**, so yt-dlp
+runs YouTube's deprecated no-JS path — it prints a warning and can return *fewer formats* rather
+than failing loudly. Confirm any fresh copy against the `sha256` in the manifest.

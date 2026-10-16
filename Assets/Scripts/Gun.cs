@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 /// <summary>
-/// Shoots bullets, plays a shot and cocks itself back. One emitter per mount: the <see cref="Weapon"/>
-/// on the parent decides when this gun's turn comes, so all the gun has to know is how to shoot.
+/// Shoots bullets, lights a muzzle flash, plays a shot and cocks itself back. One emitter per mount:
+/// the <see cref="Weapon"/> on the parent decides when this gun's turn comes, so all the gun has to
+/// know is how to shoot.
 ///
 /// List the barrels in order and point it at the bullet prefab. Bullets are instantiated unparented,
 /// so each one locks in the pose its barrel had at the moment of firing while the gun and barrels
-/// carry on moving. The shot is played the same way - through <see cref="AudioManager"/>, from the
-/// muzzle, on the gun's own mixer - so it and the bullet leave from the same place.
+/// carry on moving. The flash is the opposite: it is a child of its barrel and never leaves, so it
+/// needs no spawning at all - firing just relights it. The shot is played from the muzzle through
+/// <see cref="AudioManager"/>, so sound and bullet leave from the same place the flame does.
 /// </summary>
 public class Gun : WeaponEmitter
 {
@@ -19,6 +21,12 @@ public class Gun : WeaponEmitter
     [Header("Ammo")]
     [Tooltip("Bullet prefab. It needs a Projectile and a CapsuleCollider.")]
     [SerializeField] Projectile bulletPrefab;
+
+    [Header("Muzzle flash")]
+    [Tooltip("Flash for each barrel, in the same order as the Barrels list above, so index 0 is the " +
+             "flash on barrel 0. Each should be a child of its barrel. Leave a slot empty for a barrel " +
+             "that fires without one.")]
+    [SerializeField] MuzzleFlash[] muzzleFlashes;
 
     [Header("Sound")]
     [Tooltip("Played once per shot, from the muzzle. Leave it empty for a silent gun.")]
@@ -48,6 +56,8 @@ public class Gun : WeaponEmitter
     float kickDuration;             // one kick spans one shot interval
     float kickElapsed = -1f;        // negative while the gun is at rest
 
+    MuzzleFlash[] flashes;          // one resolved flash per barrel, filled in Awake
+
     void Awake()
     {
         if (barrels == null || barrels.Length == 0)
@@ -55,8 +65,32 @@ public class Gun : WeaponEmitter
             Debug.LogWarning($"{name}: Gun has no barrels listed, so it has nothing to fire from.", this);
         }
 
+        ResolveMuzzleFlashes();
+
         kick = recoilPart != null ? recoilPart : transform;
         kickRestLocalPosition = kick.localPosition;
+    }
+
+    /// <summary>
+    /// Pairs each barrel with the flash it should light. A slot left empty in the Inspector falls back
+    /// to the MuzzleFlash sitting under that barrel, so a gun duplicated in the hierarchy keeps its
+    /// flash without being rewired - which is exactly the wiring a copy tends to lose.
+    /// </summary>
+    void ResolveMuzzleFlashes()
+    {
+        int count = barrels != null ? barrels.Length : 0;
+        flashes = new MuzzleFlash[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            MuzzleFlash assigned = muzzleFlashes != null && i < muzzleFlashes.Length ? muzzleFlashes[i] : null;
+            flashes[i] = assigned != null ? assigned : FindFlash(barrels[i]);
+        }
+    }
+
+    static MuzzleFlash FindFlash(Transform barrel)
+    {
+        return barrel != null ? barrel.GetComponentInChildren<MuzzleFlash>(true) : null;
     }
 
     void Update()
@@ -77,18 +111,34 @@ public class Gun : WeaponEmitter
             return;
         }
 
-        foreach (Transform barrel in barrels)
+        for (int i = 0; i < barrels.Length; i++)
         {
+            Transform barrel = barrels[i];
             if (barrel == null) continue;
 
             // Deliberately unparented: the bullet keeps the muzzle's pose and ignores the gun from here on.
             Instantiate(bulletPrefab, barrel.position, barrel.rotation);
+
+            // The flash is already sitting on that barrel, so this only has to relight it.
+            PlayMuzzleFlash(i);
         }
 
         PlayFireSound();
 
         kickDuration = Mathf.Max(interval, 0f);
         kickElapsed = 0f;
+    }
+
+    /// <summary>
+    /// Relights the flash belonging to one barrel. The flashes are matched to the barrels by index, so
+    /// the flame and the bullet always leave from the same muzzle.
+    /// </summary>
+    void PlayMuzzleFlash(int barrelIndex)
+    {
+        if (flashes == null || barrelIndex >= flashes.Length) return;
+
+        MuzzleFlash flash = flashes[barrelIndex];
+        if (flash != null) flash.Play();
     }
 
     /// <summary>

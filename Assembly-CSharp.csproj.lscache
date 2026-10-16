@@ -55,9 +55,13 @@ Assets/Scripts/
  CrossHair.cs
  DashGhost.cs
  Gun.cs
+ ImpactMark.cs
  Look.cs
  MagicDash.cs
+ MuzzleFlash.cs
+ ObjectPool.cs
  Player.cs
+ PooledEffect.cs
  Projectile.cs
  Weapon.cs
  WeaponEmitter.cs

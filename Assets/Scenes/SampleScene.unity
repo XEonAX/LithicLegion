@@ -1233,6 +1233,7 @@ GameObject:
   - component: {fileID: 1058170555}
   - component: {fileID: 1058170554}
   - component: {fileID: 1058170559}
+  - component: {fileID: 1058170560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1376,7 +1377,61 @@ MonoBehaviour:
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  crossHair: {fileID: 1834703704}
   Weapons: {fileID: 1179824267}
+--- !u!114 &1058170560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058170553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655bfd289bbed4270bfd1577cbd3b6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagicDash
+  distance: 6
+  impulse: 6
+  minSpeed: 0.5
+  cooldown: 0.3
+  keepHorizontal: 0
+  wallPadding: 0.05
+  effectMaterial: {fileID: 2100000, guid: 17308a968aa42450b9a723ea6278277a, type: 2}
+  ghostLifetime: 1
+  ghostCollapse: 0.12
+  ghostStretch: 1
+  ghostThickness: 0.1
+  ghostFade:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  puff: {fileID: 0}
+  puffCount: 12
+  puffSpread: 30
+  puffSize: 0.18
+  puffSpeed: 2.5
+  puffLifetime: 0.45
 --- !u!1 &1099530256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,6 +1986,7 @@ MonoBehaviour:
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  crossHair: {fileID: 0}
   Weapons: {fileID: 0}
 --- !u!135 &1333814911
 SphereCollider:
@@ -2400,6 +2456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a9f9ace79a54807a54f5ce035585ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrossHair
+  nearDistance: 5
+  farDistance: 40
+  nearScale: 1
+  farScale: 0.5
+  smoothSpeed: 4
 --- !u!1001 &1864432610
 PrefabInstance:
   m_ObjectHideFlags: 0

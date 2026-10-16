@@ -121,3 +121,4 @@ InitTestScene*.unity*
 
 # MSBuild/Roslyn incremental caches regenerated on every compile
 *.lscache
+/audio_work/

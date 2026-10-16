@@ -52,8 +52,10 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 [sourceFiles]
 Assets/Scripts/
  CrossHair.cs
+ DashGhost.cs
  Gun.cs
  Look.cs
+ MagicDash.cs
  Player.cs
  Projectile.cs
  Weapon.cs

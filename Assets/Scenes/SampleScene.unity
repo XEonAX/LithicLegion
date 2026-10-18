@@ -13439,7 +13439,7 @@ MonoBehaviour:
   - {fileID: 1864432612}
   - {fileID: 1635710687}
   - {fileID: 1915510322}
-  fireRate: 50
+  fireRate: 20
 --- !u!1001 &1185299527
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99239448fd15745ac9d1fd526ef09a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 200
+  speed: 500
   maxDistance: 300
   hitMask:
     serializedVersion: 2

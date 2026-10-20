@@ -37,6 +37,11 @@ public class Gun : WeaponEmitter
     [Tooltip("How loud one shot is, before the mixer gets a say.")]
     [Range(0f, 1f)]
     [SerializeField] float fireVolume = 1f;
+    [Tooltip("How much of the shot is placed in the world. The player's own gun is heard from the " +
+             "third-person camera, so 1 would fade it by the camera distance; a little blend keeps a " +
+             "hint of the muzzle without losing the volume.")]
+    [Range(0f, 1f)]
+    [SerializeField] float spatialBlend = 0.1f;
     [Tooltip("Each shot picks a pitch at random in this range, so a burst does not sound like one " +
              "sample played over and over. Set both ends to 1 to switch the variation off.")]
     [SerializeField] Vector2 firePitch = new Vector2(0.94f, 1.06f);
@@ -150,7 +155,7 @@ public class Gun : WeaponEmitter
         if (fireSound == null) return;
 
         AudioManager.PlayOneShot(fireSound, MuzzlePosition(), fireOutput, fireVolume,
-                                 Random.Range(firePitch.x, firePitch.y));
+                                 Random.Range(firePitch.x, firePitch.y), spatialBlend);
     }
 
     Vector3 MuzzlePosition()

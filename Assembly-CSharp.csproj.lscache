@@ -52,9 +52,17 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 [sourceFiles]
 Assets/Scripts/
  AudioManager.cs
+ BeamLine.cs
+ BladeGlow.cs
+ CameraFx.cs
+ CameraShakeExtension.cs
+ ChargeAbsorb.cs
  CrossHair.cs
  DashGhost.cs
+ GlowOrb.cs
+ GlowSphere.cs
  Gun.cs
+ HitBurst.cs
  ImpactMark.cs
  Look.cs
  MagicDash.cs
@@ -62,7 +70,10 @@ Assets/Scripts/
  ObjectPool.cs
  Player.cs
  PooledEffect.cs
+ PortalGun.cs
  Projectile.cs
+ RailGun.cs
+ SparkEmitter.cs
  Weapon.cs
  WeaponEmitter.cs
 Assets/TutorialInfo/Readme.cs
@@ -400,6 +411,7 @@ Library/ScriptAssemblies/
  Unity.AppUI.Redux.dll
  Unity.AppUI.Redux.Editor.dll
  Unity.AppUI.Undo.dll
+ Unity.Bindings.OpenImageIO.Editor.dll
  Unity.Burst.dll
  Unity.Cinemachine.dll
  Unity.Cinemachine.Editor.dll
@@ -434,6 +446,9 @@ Library/ScriptAssemblies/
  Unity.PlasticSCM.Editor.Assistant.dll
  Unity.PlasticSCM.Editor.dll
  Unity.Profiling.Core.dll
+ Unity.Recorder.Base.dll
+ Unity.Recorder.dll
+ Unity.Recorder.Editor.dll
  Unity.Rendering.LightTransport.Editor.dll
  Unity.RenderPipeline.Universal.ShaderLibrary.dll
  Unity.RenderPipelines.Core.Editor.dll

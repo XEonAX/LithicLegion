@@ -2749,6 +2749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube50 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3102760352901721096, guid: c5dc5ced6afe246f2abf81c8142559d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9845,7 +9849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fd606c6f7244ce7841142ef53a8a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  mixer: {fileID: 24100000, guid: e2ffd59871ee84331bba60ec3fd716c0, type: 2}
+  mixer: {fileID: 24100000, guid: 052f2fcf5691344b7a9fe8850ca525de, type: 2}
   voiceCount: 24
 --- !u!4 &518333646
 Transform:
@@ -11572,7 +11576,7 @@ MonoBehaviour:
   chargeMatchesSound: 1
   chargeSound: {fileID: 8300000, guid: 6a6f9bb09628f42debb931d896553deb, type: 3}
   fireSound: {fileID: 8300000, guid: e7609607db5704972a02a3cd4c312983, type: 3}
-  soundOutput: {fileID: 24300002, guid: e2ffd59871ee84331bba60ec3fd716c0, type: 2}
+  soundOutput: {fileID: -2656350920351656478, guid: 052f2fcf5691344b7a9fe8850ca525de, type: 2}
   chargeVolume: 0.7
   fireVolume: 0.9
   spatialBlend: 0.1
@@ -11602,6 +11606,7 @@ MonoBehaviour:
   hitFlashDuration: 0.2
   hitLightRange: 8
   hitLightPower: 10
+  fractureOnHit: 1
   explosionForce: 200
   explosionForceRadius: 5
   explosionUpwards: 0.4
@@ -11721,7 +11726,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 70959b6249d1046b99fb4df5e71fc98e, type: 2}
   explosionRadius: 10
   size: {x: 0.5, y: 2}
-  lifetime: {x: 1, y: 5}
+  lifetime: {x: 1, y: 3}
   driftSpeed: 10
   brightness: 0.9
   holdFraction: 0.771
@@ -16014,14 +16019,6 @@ PrefabInstance:
       propertyPath: muzzleFlashPrefab
       value: 
       objectReference: {fileID: 5068686587564096455, guid: 99579560db27e4544afa5f03e7ba4bb1, type: 3}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: muzzleFlashes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: 'muzzleFlashes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 855173549}
     - target: {fileID: 6542095115773080146, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -16036,17 +16033,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1268623715152141731, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
   m_PrefabInstance: {fileID: 855173547}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &855173549 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3941779398851917279, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-  m_PrefabInstance: {fileID: 855173547}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421d38907a1504fb09120c0eac400b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MuzzleFlash
 --- !u!114 &855173550 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
@@ -20247,6 +20233,7 @@ GameObject:
   - component: {fileID: 1058170554}
   - component: {fileID: 1058170559}
   - component: {fileID: 1058170560}
+  - component: {fileID: 1058170561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -20445,6 +20432,60 @@ MonoBehaviour:
   puffSize: 0.18
   puffSpeed: 2.5
   puffLifetime: 0.45
+--- !u!114 &1058170561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058170553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0240de98e984befa6a311df05f98a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SphereAudio
+  rollClip: {fileID: 8300000, guid: 666578c8d84914ab19a02e73cac41416, type: 3}
+  driveClip: {fileID: 8300000, guid: 6e5b6a64915d54b1abf9229f1a0aadcc, type: 3}
+  slipClip: {fileID: 8300000, guid: 1737ab2eb8d3a46f9be18224fc24a32c, type: 3}
+  output: {fileID: -5523026236774980458, guid: 052f2fcf5691344b7a9fe8850ca525de, type: 2}
+  rollVolume: 0.176
+  driveVolume: 0.05
+  slipVolume: 0.044
+  heavyImpacts:
+  - {fileID: 8300000, guid: 06f7831ea4b5b4328b865357948e1776, type: 3}
+  - {fileID: 8300000, guid: 905b514c43be647fd8d980342e0c8b48, type: 3}
+  - {fileID: 8300000, guid: 15393f6cdbf07405386a58fa3b138f43, type: 3}
+  - {fileID: 8300000, guid: f42bf0d2d51e64af08aaf91dfb70950d, type: 3}
+  - {fileID: 8300000, guid: 79a007ac29e8946fc823708992a31d00, type: 3}
+  mediumImpacts:
+  - {fileID: 8300000, guid: 296cbe47112d347df9e99bcbc00e9abd, type: 3}
+  - {fileID: 8300000, guid: 0fc49ad23e64444c68d39c2a646bfc92, type: 3}
+  - {fileID: 8300000, guid: e30b0c6c2457e4ec2800a2f13ad47dea, type: 3}
+  - {fileID: 8300000, guid: 024e2c8ae37e8461f8ef8cd34e67c2ba, type: 3}
+  - {fileID: 8300000, guid: de42d8fd38f8d4edd8ed6174bfcee599, type: 3}
+  impactOutput: {fileID: -8888543547622802231, guid: 052f2fcf5691344b7a9fe8850ca525de, type: 2}
+  impactVolume: 1
+  minImpactSpeed: 1.5
+  heavyImpactSpeed: 5
+  fullImpactSpeed: 12
+  impactCooldown: 0.08
+  impactPitch: {x: 0.92, y: 1.08}
+  fullSpeed: 50
+  slipStart: 1
+  slipFull: 9
+  scrubGain: 1.4
+  driver: {fileID: 0}
+  rollPitch: {x: 0.8, y: 1.15}
+  drivePitch: {x: 0.45, y: 1.85}
+  slipPitch: {x: 0.9, y: 1.6}
+  rollCutoff: {x: 700, y: 18000}
+  driveHighPass: 45
+  minDistance: 2
+  maxDistance: 50
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  logState: 0
 --- !u!1001 &1060223954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23245,7 +23286,7 @@ MonoBehaviour:
   modes:
   - name: Machine Gun
     style: 0
-    fireRate: 20
+    fireRate: 5
     visual: {fileID: 530568181}
     left:
     - {fileID: 1916691077}
@@ -25642,14 +25683,6 @@ PrefabInstance:
       propertyPath: muzzleFlashPrefab
       value: 
       objectReference: {fileID: 5068686587564096455, guid: 99579560db27e4544afa5f03e7ba4bb1, type: 3}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: muzzleFlashes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: 'muzzleFlashes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1309257532}
     - target: {fileID: 6542095115773080146, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -25664,17 +25697,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1268623715152141731, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
   m_PrefabInstance: {fileID: 1309257530}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1309257532 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3941779398851917279, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-  m_PrefabInstance: {fileID: 1309257530}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421d38907a1504fb09120c0eac400b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MuzzleFlash
 --- !u!114 &1309257533 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
@@ -28302,17 +28324,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 728420720035620693, guid: c5dc5ced6afe246f2abf81c8142559d6, type: 3}
   m_PrefabInstance: {fileID: 1454874470}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1457034497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3941779398851917279, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-  m_PrefabInstance: {fileID: 3330604528439743479}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421d38907a1504fb09120c0eac400b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MuzzleFlash
 --- !u!1001 &1461886426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42045,14 +42056,6 @@ PrefabInstance:
       propertyPath: muzzleFlashPrefab
       value: 
       objectReference: {fileID: 5068686587564096455, guid: 99579560db27e4544afa5f03e7ba4bb1, type: 3}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: muzzleFlashes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3580253052160497064, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
-      propertyPath: 'muzzleFlashes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1457034497}
     - target: {fileID: 6542095115773080146, guid: bef5eb2149f2f4b6ca45f4ffd6d95c94, type: 3}
       propertyPath: m_IsActive
       value: 0

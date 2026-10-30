@@ -36,7 +36,7 @@ public sealed class RailGun : WeaponEmitter
     [SerializeField] AudioClip chargeSound;
     [Tooltip("Blast and its tail, played at the muzzle when the shot commits.")]
     [SerializeField] AudioClip fireSound;
-    [Tooltip("Bus both sounds play on - the Gun mixer. Leaving it empty sends them to the master.")]
+    [Tooltip("Bus both sounds play on - the Weapons bus of the Game mixer. Leaving it empty sends them to the master.")]
     [SerializeField] AudioMixerGroup soundOutput;
     [Tooltip("How loud the charge is, before the mixer gets a say.")]
     [Range(0f, 1f)]
@@ -107,6 +107,10 @@ public sealed class RailGun : WeaponEmitter
     [SerializeField] float hitLightRange = 8f;
     [Tooltip("Strength of the impact light.")]
     [SerializeField] float hitLightPower = 10f;
+
+    [Header("Fracture")]
+    [Tooltip("If the hit object has a Fracturable component, break it at the impact point.")]
+    [SerializeField] bool fractureOnHit = true;
 
     [Header("Explosion force")]
     [Tooltip("Impulse applied to each non-kinematic rigidbody at the blast centre.")]
@@ -371,7 +375,8 @@ public sealed class RailGun : WeaponEmitter
         if (shotBeam == null || barrel == null) return;
 
         Vector3 direction = barrel.forward;
-        bool hitSomething = TryHitShot(origin, direction, out Vector3 end, out Vector3 normal);
+        bool hitSomething = TryHitShot(origin, direction, out Vector3 end, out Vector3 normal,
+                                       out Collider target);
 
         shotBeam.SetColor(beamColor);
         shotBeam.SetWidths(beamCoreWidth, beamGlowWidth);
@@ -384,7 +389,15 @@ public sealed class RailGun : WeaponEmitter
 
         if (hitBurst != null) hitBurst.Emit(end, normal, beamColor, hitBurstCount);
         if (hitGlow != null) hitGlow.Flash(end, beamColor, hitFlashSize, hitFlashBrightness, hitFlashDuration);
+
+        // Loose props get the general blast first; breaking the target afterwards means its new
+        // shards are thrown by the fracture's own, more deliberate impulse instead of by both.
         ApplyExplosionForce(end);
+        if (fractureOnHit && target != null)
+        {
+            Fracturable fracturable = target.GetComponentInParent<Fracturable>();
+            if (fracturable != null) fracturable.Fracture(end, normal);
+        }
     }
 
     /// <summary>
@@ -411,10 +424,12 @@ public sealed class RailGun : WeaponEmitter
         }
     }
 
-    bool TryHitShot(Vector3 origin, Vector3 direction, out Vector3 point, out Vector3 normal)
+    bool TryHitShot(Vector3 origin, Vector3 direction, out Vector3 point, out Vector3 normal,
+                    out Collider target)
     {
         point = origin + direction * maxHitDistance;
         normal = -direction;
+        target = null;
 
         int count = Physics.RaycastNonAlloc(origin, direction, hits, maxHitDistance, hitMask,
                                             QueryTriggerInteraction.Ignore);
@@ -431,6 +446,7 @@ public sealed class RailGun : WeaponEmitter
             nearest = hit.distance;
             point = hit.point;
             normal = hit.normal;
+            target = hit.collider;
             found = true;
         }
 

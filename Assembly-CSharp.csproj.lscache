@@ -59,6 +59,7 @@ Assets/Scripts/
  ChargeAbsorb.cs
  CrossHair.cs
  DashGhost.cs
+ Fracturable.cs
  GlowOrb.cs
  GlowSphere.cs
  Gun.cs
@@ -74,6 +75,7 @@ Assets/Scripts/
  Projectile.cs
  RailGun.cs
  SparkEmitter.cs
+ SphereAudio.cs
  Weapon.cs
  WeaponEmitter.cs
 Assets/TutorialInfo/Readme.cs
@@ -385,9 +387,12 @@ Library/PackageCache/
   UnityPipeline.System.Collections.Immutable.dll
   UnityPipeline.System.Reflection.Metadata.dll
   UnityPipeline.System.Runtime.CompilerServices.Unsafe.dll
+ com.unity.testtools.codecoverage@19a841221620/lib/ReportGenerator/ReportGeneratorMerged.dll
  com.unity.visualscripting@4edfcc09512f/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll
 Library/ScriptAssemblies/
  HFDownloader.dll
+ OpenFracture.Editor.dll
+ RuntimeAssembly.dll
  Unity.2D.Sprite.Editor.dll
  Unity.AI.Assistant.Agent.Dynamic.Extension.Editor.dll
  Unity.AI.Assistant.Annotations.Editor.dll
@@ -471,6 +476,9 @@ Library/ScriptAssemblies/
  Unity.Splines.dll
  Unity.Splines.Editor.dll
  Unity.SurfaceCache.Runtime.dll
+ Unity.TestTools.CodeCoverage.Editor.dll
+ Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll
+ Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll
  Unity.TextMeshPro.dll
  Unity.TextMeshPro.Editor.dll
  Unity.Timeline.dll

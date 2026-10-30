@@ -12,6 +12,20 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask aimLayerMask;
     [SerializeField] CrossHair crossHair;
     [SerializeField] Transform Weapons;
+
+    /// <summary>
+    /// The direction on the ground the player is currently asking the ball to roll, as a unit
+    /// vector, or zero when there is no input. <see cref="SphereAudio"/> reads it to tell a clean
+    /// roll from the ball being driven across the way it is already travelling.
+    /// </summary>
+    public Vector3 DriveDirection { get; private set; }
+
+    /// <summary>
+    /// How hard the player is asking the ball to drive, 0-1. Unlike <see cref="DriveDirection"/>
+    /// this keeps the analogue weight of a stick, so the motor can idle between nothing and full.
+    /// </summary>
+    public float DriveThrottle { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,11 +63,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
+        DriveThrottle = Mathf.Clamp01(input.magnitude);
 
         // Direction of travel relative to the camera, flattened onto the ground plane.
         Vector3 direction = new Vector3(input.x, 0f, input.y);
         direction = cam.transform.TransformDirection(direction);
         direction = Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+        DriveDirection = direction;
 
         // A sphere rolls about an axis perpendicular to where it's going, so the roll
         // axis is "up x direction". 

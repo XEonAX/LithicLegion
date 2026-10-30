@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
 
     AudioSource[] voices;
     Voice[] borrowed;
+    AudioMixerGroup masterGroup;
     int nextVoice;
 
     void Awake()
@@ -41,7 +42,16 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
+        masterGroup = FindMasterGroup();
         BuildVoices();
+    }
+
+    AudioMixerGroup FindMasterGroup()
+    {
+        if (mixer == null) return null;
+
+        AudioMixerGroup[] groups = mixer.FindMatchingGroups("Master");
+        return groups.Length > 0 ? groups[0] : null;
     }
 
     void OnDestroy()
@@ -118,7 +128,7 @@ public class AudioManager : MonoBehaviour
         // A reused voice stops whatever it was still playing - that sound is the oldest one here.
         voice.Stop();
         voice.transform.position = position;
-        voice.outputAudioMixerGroup = group;
+        voice.outputAudioMixerGroup = group != null ? group : masterGroup;
         voice.volume = volume;
         voice.pitch = pitch;
         voice.loop = loop;

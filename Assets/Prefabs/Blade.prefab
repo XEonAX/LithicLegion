@@ -111,8 +111,8 @@ MonoBehaviour:
   muzzleFlashes:
   - {fileID: 3941779398851917279}
   fireSound: {fileID: 8300000, guid: 934318d34419d426facd63a0f2ddec9f, type: 3}
-  fireOutput: {fileID: 24300002, guid: e2ffd59871ee84331bba60ec3fd716c0, type: 2}
-  fireVolume: 1
+  fireOutput: {fileID: -2656350920351656478, guid: 052f2fcf5691344b7a9fe8850ca525de, type: 2}
+  fireVolume: 0.208
   spatialBlend: 0.1
   firePitch: {x: 0.94, y: 1.06}
   recoilDistance: 0.15

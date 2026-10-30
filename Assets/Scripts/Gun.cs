@@ -31,7 +31,7 @@ public class Gun : WeaponEmitter
     [Header("Sound")]
     [Tooltip("Played once per shot, from the muzzle. Leave it empty for a silent gun.")]
     [SerializeField] AudioClip fireSound;
-    [Tooltip("Bus the shot is played on - the Gun mixer. Leaving it empty sends the shot straight to " +
+    [Tooltip("Bus the shot is played on - the Weapons bus of the Game mixer. Leaving it empty sends the shot straight to " +
              "the master, where it cannot be turned down on its own.")]
     [SerializeField] AudioMixerGroup fireOutput;
     [Tooltip("How loud one shot is, before the mixer gets a say.")]

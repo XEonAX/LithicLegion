@@ -121,6 +121,12 @@ public sealed class RailGun : WeaponEmitter
     [SerializeField] float explosionUpwards = 0.4f;
     [Tooltip("Layers the blast can push.")]
     [SerializeField] LayerMask explosionMask = ~0;
+    [Tooltip("How far the blast centre is pulled back from the impact point towards the shot's origin, " +
+             "in metres. Sitting the sphere on the wall face makes every push parallel to the wall; " +
+             "pulling its centre back towards the muzzle gives each pushed block a component down the " +
+             "barrel, so the wall is punched away from the shooter instead of only spread sideways. " +
+             "Larger is more directional; 0 is the old surface-centred blast.")]
+    [SerializeField] float blastOffset = 1.5f;
 
     Weapon weapon;
     Player player;
@@ -392,7 +398,7 @@ public sealed class RailGun : WeaponEmitter
 
         // Loose props get the general blast first; breaking the target afterwards means its new
         // shards are thrown by the fracture's own, more deliberate impulse instead of by both.
-        ApplyExplosionForce(end);
+        ApplyExplosionForce(end, origin);
         if (fractureOnHit && target != null)
         {
             Fracturable fracturable = target.GetComponentInParent<Fracturable>();
@@ -403,9 +409,21 @@ public sealed class RailGun : WeaponEmitter
     /// <summary>
     /// Pushes every non-kinematic rigidbody inside the blast sphere. Static geometry has no rigidbody
     /// and kinematic bodies ignore the impulse, so only loose objects are thrown.
+    ///
+    /// The sphere is not centred on the impact point: it is pulled back towards
+    /// <paramref name="origin"/> by <see cref="blastOffset"/>. A blast sitting on the wall face has
+    /// every one of its radial pushes parallel to that face, and the block the shot lands on - whose
+    /// centre is behind the centre - has no radial direction left pointing anywhere useful. Offsetting
+    /// the centre towards the muzzle puts the whole wall in front of it, so every push gains a
+    /// component down the barrel and the wall is driven away from the shooter, not just spread out.
     /// </summary>
-    void ApplyExplosionForce(Vector3 centre)
+    void ApplyExplosionForce(Vector3 impact, Vector3 origin)
     {
+        Vector3 towardsOrigin = origin - impact;
+        Vector3 centre = towardsOrigin.sqrMagnitude > 0.0001f
+            ? impact + towardsOrigin.normalized * Mathf.Min(blastOffset, towardsOrigin.magnitude)
+            : impact;
+
         int count = Physics.OverlapSphereNonAlloc(centre, explosionForceRadius, explosionHits, explosionMask,
                                                   QueryTriggerInteraction.Ignore);
         explosionBodies.Clear();

@@ -51,6 +51,7 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 
 [sourceFiles]
 Assets/Scripts/
+ AimModeCamera.cs
  AudioManager.cs
  BeamLine.cs
  BladeGlow.cs
@@ -69,6 +70,7 @@ Assets/Scripts/
  MagicDash.cs
  MuzzleFlash.cs
  ObjectPool.cs
+ OrbitCamera.cs
  Player.cs
  PooledEffect.cs
  PortalGun.cs

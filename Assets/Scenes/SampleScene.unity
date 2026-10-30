@@ -5849,6 +5849,8 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585552}
   - component: {fileID: 330585553}
+  - component: {fileID: 330585554}
+  - component: {fileID: 330585555}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6119,6 +6121,40 @@ MonoBehaviour:
   RollKick: 0
   JerkPosition: {x: 0, y: 0, z: 0}
   JerkRotation: {x: 0, y: 0, z: 0}
+--- !u!114 &330585554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569d544f4d32c46449668dbb3e1888ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimModeCamera
+  player: {fileID: 1058170559}
+  aimCamera: {fileID: 330585550}
+  orbitCamera: {fileID: 330585555}
+--- !u!114 &330585555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2982c944b12b443b681f0615462537b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrbitCamera
+  distance: 9.75
+  pivotHeight: 1
+  lookRig: {fileID: 1323655153}
+  screenDrop: 12
+  minPitch: -5
+  maxPitch: 80
+  positionDamping: 0
 --- !u!1001 &333122300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20374,11 +20410,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   torque: 10
+  startingAimMode: 0
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   crossHair: {fileID: 1834703704}
   Weapons: {fileID: 1179824267}
+  minAimSpeed: 0.25
+  aimDamping: 0.08
 --- !u!114 &1058170560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25936,11 +25975,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   torque: 5
+  startingAimMode: 0
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 0
   crossHair: {fileID: 0}
   Weapons: {fileID: 0}
+  minAimSpeed: 0.25
+  aimDamping: 0.08
 --- !u!135 &1333814911
 SphereCollider:
   m_ObjectHideFlags: 0

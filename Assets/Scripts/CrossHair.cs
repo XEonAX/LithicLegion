@@ -52,6 +52,17 @@ public class CrossHair : MonoBehaviour
         targetMultiplier = Mathf.Lerp(nearScale, farScale, t);
     }
 
+    /// <summary>
+    /// Shows or hides the reticle. Player takes it away in travel aim: the guns follow the movement
+    /// direction there, so a reticle sitting on the screen centre would be marking a spot nothing
+    /// is aimed at. The GameObject is toggled rather than the image's colour, so a hidden reticle
+    /// costs no layout or draw work and the smoothed size is kept for when it comes back.
+    /// </summary>
+    public void SetShown(bool shown)
+    {
+        if (gameObject.activeSelf != shown) gameObject.SetActive(shown);
+    }
+
     // LateUpdate so the reticle settles after Player has reported this frame's distance.
     void LateUpdate()
     {
